@@ -22,3 +22,9 @@ docker-build-lite: go-build-lite
 
 docker-run-lite: docker-build-lite
 	docker run --name noddy-lite -p 8081:8080 -d noddy-lite
+
+docker-push-lite: docker-build-lite
+	docker tag noddy-lite ${DOCKER_USERNAME}/noddy-lite
+	docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+	docker push ${DOCKER_USERNAME}/noddy-lite
+	docker logout
